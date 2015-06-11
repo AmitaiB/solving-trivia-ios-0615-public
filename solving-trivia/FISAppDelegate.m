@@ -15,9 +15,7 @@
 
 -(NSString*) solveTrivia
 {
-    // write your solution here!
-    NSMutableString *triviumAnswer = [[NSMutableString alloc] init];
-    
+    // write your solution here!    
     NSDictionary *stateAndCapitals = @{
     @"Montgomery": @"Alabama",
     @"Juneau": @"Alaska",
@@ -69,31 +67,51 @@
     @"Charleston": @"West Virginia",
     @"Madison": @"Wisconsin",
     @"Cheyenne": @"Wyoming"};
-
-    for (NSString *capital in stateAndCapitals) {
+    
+//    NSMutableString *triviumAnswer = [[NSMutableString alloc] init];
+    
+    
+    [stateAndCapitals enumerateKeysAndObjectsUsingBlock:^(id capital, id state, BOOL *stop) {
+        NSArray *lettersOfCapital = [self charsInString:(NSString*)capital];
         BOOL matchThusFails = NO;
-        NSSet *thisCapitalsLetters = [self charsInString:capital];
-        NSSet *thisStatesLetters = [self charsInString:stateAndCapitals[capital]];
-        for (NSString *stateLetter in thisStatesLetters) {
-            for (NSString *capitalLetter in thisCapitalsLetters) {
-                if ([stateLetter isEqualToString:capitalLetter]) {
-                    matchThusFails = YES;
-                }
+        NSMutableArray *letterScore = [@[]mutableCopy];
+        for (NSString *letter in lettersOfCapital) {
+            if ([(NSString*)state containsString:letter]) {
+                [letterScore addObject:@"YES"];
+            } else {
+                [letterScore addObject:@"NO"];
             }
         }
-        if (matchThusFails == NO)
-            triviumAnswer = stateAndCapitals[capital];
-    }
+        if (![[letterScore description] containsString:@"YES"])
+            return state;
+        
+        
+    }];
+    
+//    for (NSString *capital in stateAndCapitals) {
+//        NSSet *thisCapitalsLetters = [self charsInString:capital];
+//        NSSet *thisStatesLetters = [self charsInString:stateAndCapitals[capital]];
+//        for (NSString *stateLetter in thisStatesLetters) {
+//            for (NSString *capitalLetter in thisCapitalsLetters) {
+//                NSLog(@"\n'%@' (%@)\n'%@' (%@ (%@))",stateLetter, stateAndCapitals[capital], stateLetter, stateAndCapitals[capital], capital);
+//                if ([stateLetter isEqualToString:capitalLetter]) {
+//                    matchThusFails = YES;
+//                }
+//            }
+//        }
+//        if (matchThusFails == NO)
+//            triviumAnswer = stateAndCapitals[capital];
+//    }
     
     
-    return [triviumAnswer copy];
+    return @"";
 }
 
--(NSSet*)charsInString:(NSString *)inputStr {
-    NSSet* tempSet0 = [NSSet setWithArray:[[inputStr lowercaseString] componentsSeparatedByString:@""]];
-    NSMutableSet *tempSet = [tempSet0 mutableCopy];
-    [tempSet removeObject:@" "];
-    return [tempSet copy];
+-(NSArray*)charsInString:(NSString *)inputStr {
+    NSMutableArray* tempSet0 = [NSMutableArray arrayWithArray:[[inputStr lowercaseString] componentsSeparatedByString:@""]];
+//    NSMutableSet *tempSet = [tempSet0 mutableCopy];
+    [tempSet0 removeObject:@" "];
+    return [tempSet0 copy];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

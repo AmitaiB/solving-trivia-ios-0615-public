@@ -12,6 +12,6 @@
 
 -(NSString*) solveTrivia;
 
--(NSSet*)charsInString:(NSString *)inputStr;
+-(NSArray*)charsInString:(NSString *)inputStr;
 
 @end
