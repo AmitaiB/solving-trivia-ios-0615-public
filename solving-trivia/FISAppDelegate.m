@@ -72,7 +72,7 @@
     
     
     [stateAndCapitals enumerateKeysAndObjectsUsingBlock:^(id capital, id state, BOOL *stop) {
-        NSArray *lettersOfCapital = [self charsInString:(NSString*)capital];
+        NSArray *lettersOfCapital = [self charsInString:[(NSString*)capital lowercaseString]];
 //        BOOL matchThusFails = NO;
         NSMutableArray *letterScore = [@[]mutableCopy];
         for (NSString *letter in lettersOfCapital) {
@@ -109,9 +109,11 @@
 
 -(NSArray*)charsInString:(NSString *)inputStr {
 
-    NSMutableArray* tempSet0 = [NSMutableArray arrayWithArray:[[inputStr lowercaseString] componentsSeparatedByString:@""]];
+    NSMutableArray* tempSet0 = [[NSMutableArray alloc] init];
 //    NSMutableSet *tempSet = [tempSet0 mutableCopy];
-    [tempSet0 removeObject:@" "];
+    for (NSInteger i = 0; i < [inputStr length]; i++) {
+        [tempSet0 addObject: [NSString stringWithFormat:@"%C",[inputStr characterAtIndex:i]]];
+    }
     return [tempSet0 copy];
 }
 
