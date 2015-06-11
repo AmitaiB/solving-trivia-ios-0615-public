@@ -73,7 +73,6 @@
     
     [stateAndCapitals enumerateKeysAndObjectsUsingBlock:^(id capital, id state, BOOL *stop) {
         NSArray *lettersOfCapital = [self charsInString:[(NSString*)capital lowercaseString]];
-//        BOOL matchThusFails = NO;
         NSMutableArray *letterScore = [@[]mutableCopy];
         for (NSString *letter in lettersOfCapital) {
             if ([[(NSString*)state lowercaseString] containsString:letter]) {
@@ -83,25 +82,9 @@
             }
         }
         NSLog(@"%@, %@", lettersOfCapital, letterScore);
-//        NSRange range = [[letterScore description] rangeOfString:@"YES" options:NSCaseInsensitiveSearch];
         if ([letterScore indexOfObject:@1] == NSNotFound)
             triviumAnswer = state;
     }];
-    
-//    for (NSString *capital in stateAndCapitals) {
-//        NSSet *thisCapitalsLetters = [self charsInString:capital];
-//        NSSet *thisStatesLetters = [self charsInString:stateAndCapitals[capital]];
-//        for (NSString *stateLetter in thisStatesLetters) {
-//            for (NSString *capitalLetter in thisCapitalsLetters) {
-//                NSLog(@"\n'%@' (%@)\n'%@' (%@ (%@))",stateLetter, stateAndCapitals[capital], stateLetter, stateAndCapitals[capital], capital);
-//                if ([stateLetter isEqualToString:capitalLetter]) {
-//                    matchThusFails = YES;
-//                }
-//            }
-//        }
-//        if (matchThusFails == NO)
-//            triviumAnswer = stateAndCapitals[capital];
-//    }
     
     
     return triviumAnswer;
@@ -110,7 +93,6 @@
 -(NSArray*)charsInString:(NSString *)inputStr {
 
     NSMutableArray* tempSet0 = [[NSMutableArray alloc] init];
-//    NSMutableSet *tempSet = [tempSet0 mutableCopy];
     for (NSInteger i = 0; i < [inputStr length]; i++) {
         [tempSet0 addObject: [NSString stringWithFormat:@"%C",[inputStr characterAtIndex:i]]];
     }
@@ -118,7 +100,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     return YES;
 }
 
