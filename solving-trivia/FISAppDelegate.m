@@ -73,16 +73,18 @@
     
     [stateAndCapitals enumerateKeysAndObjectsUsingBlock:^(id capital, id state, BOOL *stop) {
         NSArray *lettersOfCapital = [self charsInString:(NSString*)capital];
-        BOOL matchThusFails = NO;
+//        BOOL matchThusFails = NO;
         NSMutableArray *letterScore = [@[]mutableCopy];
         for (NSString *letter in lettersOfCapital) {
-            if ([(NSString*)state containsString:letter]) {
-                [letterScore addObject:@"YES"];
+            if ([[(NSString*)state lowercaseString] containsString:letter]) {
+                [letterScore addObject:@1];
             } else {
-                [letterScore addObject:@"NO"];
+                [letterScore addObject:@0];
             }
         }
-        if (![[letterScore description] containsString:@"YES"])
+        NSLog(@"%@, %@", lettersOfCapital, letterScore);
+//        NSRange range = [[letterScore description] rangeOfString:@"YES" options:NSCaseInsensitiveSearch];
+        if ([letterScore indexOfObject:@1] == NSNotFound)
             triviumAnswer = state;
     }];
     
@@ -102,10 +104,11 @@
 //    }
     
     
-    return @"";
+    return triviumAnswer;
 }
 
 -(NSArray*)charsInString:(NSString *)inputStr {
+
     NSMutableArray* tempSet0 = [NSMutableArray arrayWithArray:[[inputStr lowercaseString] componentsSeparatedByString:@""]];
 //    NSMutableSet *tempSet = [tempSet0 mutableCopy];
     [tempSet0 removeObject:@" "];
