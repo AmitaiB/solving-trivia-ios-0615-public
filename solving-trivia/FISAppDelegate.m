@@ -71,11 +71,22 @@
     @"Cheyenne": @"Wyoming"};
 
     for (NSString *capital in stateAndCapitals) {
-        charsInString
+        BOOL matchThusFails = NO;
+        NSSet *thisCapitalsLetters = [self charsInString:capital];
+        NSSet *thisStatesLetters = [self charsInString:stateAndCapitals[capital]];
+        for (NSString *stateLetter in thisStatesLetters) {
+            for (NSString *capitalLetter in thisCapitalsLetters) {
+                if ([stateLetter isEqualToString:capitalLetter]) {
+                    matchThusFails = YES;
+                }
+            }
+        }
+        if (matchThusFails == NO)
+            triviumAnswer = stateAndCapitals[capital];
     }
     
     
-    return @"";
+    return [triviumAnswer copy];
 }
 
 -(NSSet*)charsInString:(NSString *)inputStr {
