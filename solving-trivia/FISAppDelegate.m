@@ -68,7 +68,7 @@
     @"Madison": @"Wisconsin",
     @"Cheyenne": @"Wyoming"};
     
-//    NSMutableString *triviumAnswer = [[NSMutableString alloc] init];
+    __block NSMutableString *triviumAnswer = [[NSMutableString alloc] init];
     
     
     [stateAndCapitals enumerateKeysAndObjectsUsingBlock:^(id capital, id state, BOOL *stop) {
@@ -83,9 +83,7 @@
             }
         }
         if (![[letterScore description] containsString:@"YES"])
-            return state;
-        
-        
+            triviumAnswer = state;
     }];
     
 //    for (NSString *capital in stateAndCapitals) {
