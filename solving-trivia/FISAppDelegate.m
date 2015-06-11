@@ -90,7 +90,7 @@
 }
 
 -(NSSet*)charsInString:(NSString *)inputStr {
-    NSSet* tempSet0 = [NSSet setWithArray:[inputStr componentsSeparatedByString:@""]];
+    NSSet* tempSet0 = [NSSet setWithArray:[[inputStr lowercaseString] componentsSeparatedByString:@""]];
     NSMutableSet *tempSet = [tempSet0 mutableCopy];
     [tempSet removeObject:@" "];
     return [tempSet copy];
